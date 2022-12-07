@@ -1,0 +1,67 @@
+﻿@page "/"
+
+@using BlazorBoard_test.Models
+
+<NewItem OnSubmit="AddItem"  />
+
+
+<div class="row p-2">
+    <Column Type="ColumnType.Сделать"
+                 ColumnItems="ColumnItems"
+                 OnDrop="OnDrop"
+                 OnStartDrag="OnStartDrag" />
+
+    <Column Type="ColumnType.Выполняется"
+                 ColumnItems="ColumnItems"
+                 OnDrop="OnDrop"
+                 OnStartDrag="OnStartDrag" />
+
+    <Column Type="ColumnType.Готово"
+                 ColumnItems="ColumnItems"
+                 OnDrop="OnDrop"
+                 OnStartDrag="OnStartDrag" />
+</div>
+
+@code {
+    public ColumnItem CurrentItem;
+    List<ColumnItem> ColumnItems = new List<ColumnItem>();
+
+    protected override void OnInitialized()
+    {
+        ColumnItems.Add(new ColumnItem
+            {
+                Name = "Сделать зарядку",
+                Type = ColumnType.Сделать
+            });
+        ColumnItems.Add(new ColumnItem
+            {
+                Name = "Приготовить завтрак",
+                Type = ColumnType.Сделать
+            });
+        ColumnItems.Add(new ColumnItem
+            {
+                Name = "Убрать в квартире",
+                Type = ColumnType.Сделать
+            });
+    }
+
+    private void OnStartDrag(ColumnItem item)
+    {
+        CurrentItem = item;
+    }
+
+    private void OnDrop(ColumnType type)
+    {
+        CurrentItem.Type = type;
+    }
+
+    private void AddItem(string itemName)
+    {
+        var item = new ColumnItem()
+            {
+                Name = itemName,
+                Type = ColumnType.Сделать
+            };
+        ColumnItems.Add(item);
+    }
+}

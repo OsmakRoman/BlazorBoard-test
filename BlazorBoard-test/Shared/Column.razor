@@ -1,0 +1,39 @@
+﻿@using BlazorBoard_test.Models
+
+<div class="type">
+    <p class="type-header">@Type.ToString()</p>
+    <div class="board"
+        ondragover="event.preventDefault();"
+        @ondrop="OnDropHandler">
+        @foreach (var item in ColumnItems
+        .Where(q => q.Type == Type))
+        {
+            <div class="draggable" draggable="true"
+             @ondragstart="@(() => OnDragStartHandler(item))">
+                @item.Name
+            </div>
+            
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public List<ColumnItem> ColumnItems { get; set; }
+    [Parameter]
+    public ColumnType Type { get; set; }
+    [Parameter]
+    public EventCallback<ColumnType> OnDrop { get; set; }
+    [Parameter]
+    public EventCallback<ColumnItem> OnStartDrag { get; set; }
+
+    private void OnDropHandler()
+    {
+        OnDrop.InvokeAsync(Type);
+    }
+
+    private void OnDragStartHandler(ColumnItem task)
+    {
+        OnStartDrag.InvokeAsync(task);
+    }
+}

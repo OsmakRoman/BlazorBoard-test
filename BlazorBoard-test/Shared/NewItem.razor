@@ -1,0 +1,34 @@
+﻿<div class="row p-3" style="max-width:950px">
+    <div class="input-group mb-3">
+        <label class="input-group-text" for="inputItem">
+            Задача
+        </label>
+        <input type="text"
+               id="inputItem"
+               class="form-control"
+               maxlength="25"
+               placeholder="Введите новую задачу"
+               @bind-value="@itemName" />
+        <button type="button"
+                class="btn btn-outline-secondary"
+                @onclick="OnClickHandler">
+            Добавить задачу
+        </button>
+    </div>
+</div>
+
+@code {
+    private string? itemName;
+
+    [Parameter]
+    public EventCallback<string> OnSubmit { get; set; }
+
+    private async Task OnClickHandler()
+    {
+        if (!string.IsNullOrWhiteSpace(itemName))
+        {
+            await OnSubmit.InvokeAsync(itemName);
+            itemName = null;
+        }
+    }
+}

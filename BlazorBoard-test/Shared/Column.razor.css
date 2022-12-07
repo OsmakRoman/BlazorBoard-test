@@ -1,0 +1,30 @@
+﻿.draggable {
+    margin-bottom: 10px;
+    padding: 10px 25px;
+    border: 1px solid #424d5c;
+    cursor: grab;
+    background: #0c2262;
+    color: #ffffff;
+    border-radius: 5px;
+    width: 15.5rem;
+}
+
+    .draggable:active {
+        cursor: grabbing;
+    }
+
+.board {
+    padding: .75rem;
+    border: 2px solid black;
+    min-height: 20rem;
+}
+
+.type {
+    width: 19rem;
+}
+
+.type-header {
+    font-size: 2rem;
+    text-align: center;
+    padding-right: 1rem;
+}
